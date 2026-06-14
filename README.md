@@ -1,4 +1,4 @@
-# 🧬 Genetic Algorithm Framework for Mean-Reversion Trading Strategy Discovery
+#Genetic Algorithm Framework for Mean-Reversion Trading Strategy Discovery
 
 <div align="center">
 
