@@ -1,0 +1,50 @@
+# ============================================================
+# Backtest Configuration
+# genetic-quant-trader / configs/backtest_config.yaml
+# ============================================================
+
+backtest:
+
+  # Date range: 9 years covering multiple market regimes
+  #   2015-2016: Bull market
+  #   2018:      Q4 correction
+  #   2020:      COVID crash & recovery
+  #   2022-2023: Rate-hike cycle / bear market
+  start_date: "2015-01-01"
+  end_date:   "2024-01-01"
+
+  # Capital & position sizing
+  initial_capital: 1_000_000     # $1M starting capital
+  position_size:   0.10          # 10% of capital per leg (20% total per trade)
+
+  # Transaction costs
+  transaction_costs:
+    commission_bps:   5          # 5 bps per side (≈ $0.005/share @ $100 stock)
+    slippage_bps:     5          # 5 bps market impact / half-spread
+    short_rebate_bps: 50         # 50 bps/yr borrow cost for short leg (annualized)
+
+  # Walk-forward validation (prevents overfitting)
+  walk_forward:
+    enabled:     true
+    n_folds:     5               # 5-fold walk-forward
+    train_ratio: 0.70            # 70% in-sample, 30% out-of-sample per fold
+
+  # Regime analysis
+  regime_analysis:
+    enabled: true
+    regimes:
+      - name: "bull_2015_2018"
+        start: "2015-01-01"
+        end:   "2018-09-01"
+      - name: "correction_2018"
+        start: "2018-09-01"
+        end:   "2019-01-01"
+      - name: "covid_crash"
+        start: "2020-02-01"
+        end:   "2020-06-01"
+      - name: "recovery_2020"
+        start: "2020-06-01"
+        end:   "2022-01-01"
+      - name: "rate_hike_bear"
+        start: "2022-01-01"
+        end:   "2024-01-01"

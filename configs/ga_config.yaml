@@ -1,0 +1,55 @@
+# ============================================================
+# Genetic Algorithm Configuration
+# genetic-quant-trader / configs/ga_config.yaml
+# ============================================================
+
+genetic_algorithm:
+
+  # Population
+  population_size: 200            # Number of chromosomes per generation
+  elitism_count:   5              # Top N guaranteed to survive each generation
+
+  # Evolution
+  n_generations:   100            # Max generations to run
+
+  # Selection
+  selection:       tournament     # Options: tournament | roulette | rank
+  tournament_size: 5              # k for tournament selection
+
+  # Crossover
+  crossover:       uniform        # Options: uniform | single_point | arithmetic | blend
+  crossover_prob:  0.85           # Probability crossover is applied per pair
+
+  # Mutation  (Adaptive: μ decays from initial → final over generations)
+  mutation:               adaptive
+  mutation_rate_initial:  0.15    # High early → broad exploration
+  mutation_rate_final:    0.02    # Low late  → fine-grained exploitation
+  mutation_decay_rate:    5.0     # Controls exponential decay speed
+
+  # Fitness
+  fitness_metric: sharpe          # Options: sharpe | sortino | calmar | composite
+
+  # Parallelism
+  n_workers: 4                    # Parallel processes for fitness evaluation
+
+  # Early stopping
+  convergence_threshold: 0.01     # Stop if population diversity drops below this
+
+# ============================================================
+# Chromosome (Search Space) Configuration
+# ============================================================
+
+chromosome:
+
+  # Pair universe
+  pair_universe:       sp500      # sp500 | custom (set custom_tickers if custom)
+  n_pairs_candidate:   50         # Number of pre-screened pairs to expose to GA
+  min_correlation:     0.70       # Minimum absolute correlation for pair pre-filter
+
+  # Gene bounds (GA searches within these ranges)
+  # Note: GENE_BOUNDS in chromosome.py must match these
+  entry_z_range:       [1.0, 3.0]
+  exit_z_range:        [0.0, 1.5]
+  holding_min_range:   [1, 5]
+  holding_max_range:   [5, 60]
+  lookback_range:      [20, 252]
