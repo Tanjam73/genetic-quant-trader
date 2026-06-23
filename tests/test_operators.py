@@ -51,21 +51,21 @@ class TestTournamentSelector:
             sel.select([], n=5)
 
     def test_higher_k_biased_toward_fit(self):
-    """Higher k should select fitter individuals on average."""
-    pop = make_population(20)
-    best = max(pop, key=lambda c: c.fitness)
-
-    sel_high_k = TournamentSelector(k=15)
-    sel_low_k = TournamentSelector(k=2)
-
-    high_k_avg = sum(
-        sel_high_k.select(pop, n=1)[0].fitness for _ in range(50)
-    ) / 50
-    low_k_avg = sum(
-        sel_low_k.select(pop, n=1)[0].fitness for _ in range(50)
-    ) / 50
-
-    assert high_k_avg > low_k_avg
+        """Higher k should select fitter individuals on average."""
+        pop = make_population(20)
+        best = max(pop, key=lambda c: c.fitness)
+    
+        sel_high_k = TournamentSelector(k=15)
+        sel_low_k = TournamentSelector(k=2)
+    
+        high_k_avg = sum(
+            sel_high_k.select(pop, n=1)[0].fitness for _ in range(50)
+        ) / 50
+        low_k_avg = sum(
+            sel_low_k.select(pop, n=1)[0].fitness for _ in range(50)
+        ) / 50
+    
+        assert high_k_avg > low_k_avg
 
 
 class TestRouletteWheelSelector:
