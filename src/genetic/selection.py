@@ -75,7 +75,10 @@ class TournamentSelector(BaseSelector):
 
         mating_pool: List[Chromosome] = []
         for _ in range(n):
-            competitors = random.choices(evaluated, k=self.k)
+            if self.k <= len(evaluated):
+                competitors = random.sample(evaluated, k=self.k)
+            else:
+                competitors = random.choices(evaluated, k=self.k)
             winner = max(competitors, key=lambda c: c.fitness)
             mating_pool.append(winner)
         return mating_pool
