@@ -84,7 +84,7 @@ class DataLoader:
             if df.empty:
                 raise ValueError(f"No data returned for {ticker}")
 
-            df.columns = [c.lower() for c in df.columns]
+            df.columns = [c[0].lower() if isinstance(c, tuple) else c.lower() for c in df.columns]
             df.index.name = "date"
             df.to_parquet(cache_path)
             return df
