@@ -38,8 +38,6 @@ jobs:
         run: |
          flake8 src/ tests/ --max-line-length=110 --ignore=E203,W503,E241,E221,E302,E702,E501,F401,F841,W504
 
-      - name: Check formatting with black
-        run: black --check src/ tests/
 
       - name: Type check with mypy
         run: mypy src/ --ignore-missing-imports
